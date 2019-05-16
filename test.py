@@ -1,4 +1,4 @@
-def abc():
+def abcd():
     from collections import deque
     q = deque([1, 0])
     while True:
