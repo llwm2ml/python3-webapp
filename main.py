@@ -1,15 +1,22 @@
-# -*- coding: utf-8 -*-
-import re
-data = 'bit'
-patt = 'bat|bit|but|hat|hit|hut'
-str = re.match(patt, data)
-if str is not None:
-    print(str.group())
-str = re.search(patt, data)
-if str is not None:
-    print(str.group())
-data = 'zhang san'
+#!/usr/bin/evn python
+# coding=utf-8
 
-str = re.split('\s', data)
-for a in str:
-    print(a);
+from bottle import default_app, get, run
+from beaker.middleware import SessionMiddleware
+
+# 设置session参数
+session_opts = {
+    'session.type': 'file',
+    'session.cookie_expires': 3600,
+    'session.data_dir': '/tmp/sessions/simple',
+    'session.auto': True
+}
+
+@get('/index/')
+def callback():
+    return 'Hello World!!!!!'
+
+# 函数主入口
+if __name__ == '__main__':
+    app_argv = SessionMiddleware(default_app(), session_opts)
+    run(app=app_argv, host='0.0.0.0', port=9090, debug=True, reloader=True)
